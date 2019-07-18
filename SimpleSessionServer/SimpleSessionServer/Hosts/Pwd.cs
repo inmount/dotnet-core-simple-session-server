@@ -6,34 +6,30 @@ using ssr;
 namespace SimpleSessionServer.Hosts {
 
     /// <summary>
-    /// 操作交互标识
+    /// 连接密码验证
     /// </summary>
-    public class Sid : Basic {
+    public class Pwd : Basic {
 
-        public Sid(SsrHost host) : base(host) {
+        public Pwd(SsrHost host) : base(host) {
         }
 
         protected override void OnRecieveData(ServerHostRecieveEventArgs e, string command, string data) {
             base.OnRecieveData(e, command, data);
 
             switch (command) {
-                case "@":
-                    // 清理存储
-                    Program.Storages.CleanUp();
-                    // 判断交互标识是否存在
-                    if (Program.Storages.ContainsKey(data)) {
-                        // 设置交互存储对象
-                        var entity = Program.Storages[data];
-                        base.SsrHost.StorageEntity = entity;
-                        // 返回信息
-                        base.SsrHost.SendSuccess(e, entity.Sid);
-                        // 设置为空业务
+                case "$":
+                    // 检测密码
+                    if (data == Program.Password) {
+                        // 设置登录状态
+                        base.SsrHost.IsLogin = true;
+                        base.SsrHost.SendSuccess(e);
+                        // 重置业务
                         base.SsrHost.SetHostNone();
                     } else {
                         // 发送错误信息
-                        base.SsrHost.SendFail(e, "Invalid Sid");
-                        // 设置为空业务
-                        base.SsrHost.SetHostNone();
+                        base.SsrHost.SendFail(e, "Invalid Pwd");
+                        System.Threading.Thread.Sleep(10);
+                        e.Entity.Close();
                     }
                     break;
                 default:
@@ -48,23 +44,20 @@ namespace SimpleSessionServer.Hosts {
             base.OnRecieveCommand(e, command, info);
 
             switch (command) {
-                // 指定交互标识
-                case "@":
-
+                // 指定连接密码
+                case "$":
                     int len = int.Parse(info);
                     if (len <= 0) {
-                        // 申请一个新的Sid
-                        var entity = Program.Storages.GetNew();
-                        base.SsrHost.StorageEntity = entity;
-                        // 返回信息
-                        base.SsrHost.SendSuccess(e, entity.Sid);
-                        // 设置为空业务
-                        base.SsrHost.SetHostNone();
-                    } else {
-                        // 设置读取模式，读取Sid
-                        base.Command = command;
-                        e.Entity.SetDataMode(len);
+                        // 发送错误信息
+                        base.SsrHost.SendFail(e, "Invalid Pwd");
+                        System.Threading.Thread.Sleep(10);
+                        e.Entity.Close();
+                        return;
                     }
+
+                    // 设置读取模式，读取密码
+                    base.Command = command;
+                    e.Entity.SetDataMode(len);
                     break;
                 default:
                     Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");

@@ -16,11 +16,9 @@
 
 设置交互标识：
 
-''' Bash
-SID\r\n
-@32\r\n
-sdsdsd-sdjskdjskd-sdnskdsjdk0-sdsdj
-'''
+    SID\r\n
+    @32\r\n
+    sdsdsd-sdjskdjskd-sdnskdsjdk0-sdsdj
 
 申请交互标识：
 

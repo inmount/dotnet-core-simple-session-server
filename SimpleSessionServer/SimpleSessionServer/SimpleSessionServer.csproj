@@ -6,11 +6,13 @@
     <ApplicationIcon />
     <StartupObject />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1907.5</Version>
+    <Version>1.0.1907.6</Version>
     <PackageId>dotnet-core-simple-session-server</PackageId>
     <Authors>d.p.z software studio</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Description>Simple Session Client是一套基于.Net Core，SSR开发组件的一套交互信息服务端开发组件</Description>
+    <Description>Simple Session Server是一套基于.Net Core，SSR开发组件的一套交互信息服务端开发组件</Description>
+    <RepositoryUrl>https://github.com/inmount/dotnet-core-simple-session-server</RepositoryUrl>
+    <PackageReleaseNotes>Simple Session Server是一套基于.Net Core，SSR开发组件的一套交互信息服务端开发组件</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

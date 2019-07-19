@@ -1,6 +1,6 @@
 # Simple Session Server
 
-一套基于.Net Core平台、ssr组件二次开发的简易交互信息服务端
+一套基于.Net Core平台、ssr组件二次开发的简易交互信息服务端（包含一套兼容Linux服务的命令行服务端和一套兼容Windows服务部署的服务端程序）及开发组件
 
 使用简单的交互协议解决跨服务器的Http交互信息及协作
 
@@ -96,6 +96,10 @@
 
     -10\r\n
     Unknow Sid
+
+## Nuget引用
+
+此组件目前已支持在Nuget仓库下载，Nuget页面为[https://www.nuget.org/packages/dotnet-core-simple-session-server/](https://www.nuget.org/packages/dotnet-core-simple-session-server/)
 
 
 

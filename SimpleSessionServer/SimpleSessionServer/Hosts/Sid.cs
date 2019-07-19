@@ -19,11 +19,11 @@ namespace SimpleSessionServer.Hosts {
             switch (command) {
                 case "@":
                     // 清理存储
-                    Program.Storages.CleanUp();
+                    Server.Storages.CleanUp();
                     // 判断交互标识是否存在
-                    if (Program.Storages.ContainsKey(data)) {
+                    if (Server.Storages.ContainsKey(data)) {
                         // 设置交互存储对象
-                        var entity = Program.Storages[data];
+                        var entity = Server.Storages[data];
                         base.SsrHost.StorageEntity = entity;
                         // 返回信息
                         base.SsrHost.SendSuccess(e, entity.Sid);
@@ -54,7 +54,7 @@ namespace SimpleSessionServer.Hosts {
                     int len = int.Parse(info);
                     if (len <= 0) {
                         // 申请一个新的Sid
-                        var entity = Program.Storages.GetNew();
+                        var entity = Server.Storages.GetNew();
                         base.SsrHost.StorageEntity = entity;
                         // 返回信息
                         base.SsrHost.SendSuccess(e, entity.Sid);

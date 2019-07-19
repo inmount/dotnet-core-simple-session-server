@@ -1,12 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1907.5</Version>
+    <PackageId>dotnet-core-simple-session-server</PackageId>
+    <Authors>d.p.z software studio</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Description>Simple Session Client是一套基于.Net Core，SSR开发组件的一套交互信息服务端开发组件</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="dotnet-core-ssr" Version="1.0.1907.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\dotnet-core-simple-session-client\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

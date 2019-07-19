@@ -19,7 +19,7 @@ namespace SimpleSessionServer.Hosts {
             switch (command) {
                 case "$":
                     // 检测密码
-                    if (data == Program.Password) {
+                    if (data == Server.Password) {
                         // 设置登录状态
                         base.SsrHost.IsLogin = true;
                         base.SsrHost.SendSuccess(e);

@@ -71,7 +71,7 @@ namespace SimpleSessionServer {
 
             // 日志式输出
             var args = (ServerHostRecieveEventArgs)e;
-            Console.WriteLine($">>> [{(args.Entity.DataMode?"D":"C")}] {e.Content}");
+            //Console.WriteLine($">>> [{(args.Entity.DataMode?"D":"C")}] {e.Content}");
 
             // 判断业务宿主是否为空
             if (_host == null) {

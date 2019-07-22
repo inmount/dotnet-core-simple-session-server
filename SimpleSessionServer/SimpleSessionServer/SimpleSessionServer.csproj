@@ -6,7 +6,7 @@
     <ApplicationIcon />
     <StartupObject />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1907.7</Version>
+    <Version>1.0.1907.8</Version>
     <PackageId>dotnet-core-simple-session-server</PackageId>
     <Authors>d.p.z software studio</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>

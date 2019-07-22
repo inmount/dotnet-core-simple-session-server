@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace SimpleSessionServer.Storages {
@@ -21,13 +22,27 @@ namespace SimpleSessionServer.Storages {
         /// </summary>
         public void CleanUp() {
             int ts = Time.GetTimestamp();
+
+            // 建立清理清单
+            List<string> keys = new List<string>();
+
             foreach (string key in this.Keys) {
-                // 判断时间戳，如超时则清理
+                // 判断时间戳，如超时则加入清理清单
                 if (this[key].ValidTime < ts) {
-                    this[key].Dispose();
-                    this.Remove(key);
+                    //this[key].Dispose();
+                    //this.Remove(key);
+                    keys.Add(key);
                 }
             }
+
+            // 清理存储
+            foreach (string key in keys) {
+                this[key].Dispose();
+                this.Remove(key);
+            }
+
+            // 释放清理清单
+            keys.Clear();
         }
 
         /// <summary>
@@ -53,6 +68,9 @@ namespace SimpleSessionServer.Storages {
             pairs.UpdateValidTime();
             // 添加到集合
             this.Add(sid, pairs);
+
+            // 调试输出
+            Debug.WriteLine("-> Entities" + this.Count);
 
             return pairs;
 

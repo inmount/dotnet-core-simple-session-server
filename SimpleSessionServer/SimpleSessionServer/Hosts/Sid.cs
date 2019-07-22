@@ -22,9 +22,14 @@ namespace SimpleSessionServer.Hosts {
                     Server.Storages.CleanUp();
                     // 判断交互标识是否存在
                     if (Server.Storages.ContainsKey(data)) {
+
                         // 设置交互存储对象
                         var entity = Server.Storages[data];
                         base.SsrHost.StorageEntity = entity;
+
+                        // 更新存储对象操作时间
+                        entity.UpdateValidTime();
+
                         // 返回信息
                         base.SsrHost.SendSuccess(e, entity.Sid);
                         // 设置为空业务

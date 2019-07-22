@@ -6,7 +6,7 @@ namespace Server {
         static void Main(string[] args) {
 
             // 以标准端参数口启动服务
-            SimpleSessionServer.Server.Build(IPAddress.Any, "000000").Run();
+            SimpleSessionServer.Server.Build(IPAddress.Any, "000000", 8601, 60).Run();
 
         }
     }

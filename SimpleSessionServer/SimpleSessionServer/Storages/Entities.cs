@@ -35,12 +35,23 @@ namespace SimpleSessionServer.Storages {
                 }
             }
 
+            if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] -+- 找到需要清理的存储 {keys.Count}/{this.Count}");
+
             // 清理存储
-            foreach (string key in keys) {
-                this[key].Dispose();
-                this[key] = null;
-                this.Remove(key);
+            try {
+                for (int i = 0; i < keys.Count; i++) {
+                    string key = keys[i];
+                    if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] !-- 正在清理存储对象 {key}");
+                    if (this.ContainsKey(key)) {
+                        //this[key].Dispose();
+                        //this[key] = null;
+                        this.Remove(key);
+                    }
+                }
+            } catch (Exception ex) {
+                if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] $$$ {ex.Message}");
             }
+            if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] -+- 清理后的存储 {this.Count}");
 
             // 释放清理清单
             keys.Clear();

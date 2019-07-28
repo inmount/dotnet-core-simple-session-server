@@ -20,6 +20,11 @@ namespace SimpleSessionServer {
         /// </summary>
         internal static string Password;
 
+        /// <summary>
+        /// 是否输出调试信息
+        /// </summary>
+        public static bool IsDebug = false;
+
         // 服务对象
         private ssr.Server _server;
 

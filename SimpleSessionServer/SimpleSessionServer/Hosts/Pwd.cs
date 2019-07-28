@@ -33,7 +33,7 @@ namespace SimpleSessionServer.Hosts {
                     }
                     break;
                 default:
-                    Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
+                    if (Server.IsDebug) Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
                     string errMsg = "Unknow Command";
                     e.Entity.Send($"-{errMsg.Length}\r\n{errMsg}");
                     break;
@@ -60,7 +60,7 @@ namespace SimpleSessionServer.Hosts {
                     e.Entity.SetDataMode(len);
                     break;
                 default:
-                    Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
+                    if (Server.IsDebug) Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
                     string errMsg = "Unknow Command";
                     e.Entity.Send($"-{errMsg.Length}\r\n{errMsg}");
                     break;

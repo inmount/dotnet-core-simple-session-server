@@ -39,7 +39,7 @@ namespace SimpleSessionServer {
         private bool CheckLogin(HostRecieveEventArgs e) {
             // 当交互存储不存在时，触发致命错误
             if (!this.IsLogin) {
-                Console.WriteLine($"> 进行{e.Content}业务时发生致命错误：尚未登录");
+                if (Server.IsDebug) Console.WriteLine($"> 进行{e.Content}业务时发生致命错误：尚未登录");
                 var args = (ServerHostRecieveEventArgs)e;
                 this.SendFail(args, "Need Login");
                 System.Threading.Thread.Sleep(10);
@@ -57,7 +57,7 @@ namespace SimpleSessionServer {
         private bool CheckStorageEntity(HostRecieveEventArgs e) {
             // 当交互存储不存在时，触发致命错误
             if (this.StorageEntity == null) {
-                Console.WriteLine($"> 进行{e.Content}业务时发生致命错误：交互存储不存在");
+                if (Server.IsDebug) Console.WriteLine($"> 进行{e.Content}业务时发生致命错误：交互存储不存在");
                 var args = (ServerHostRecieveEventArgs)e;
                 this.SendFail(args, "None Sid");
                 System.Threading.Thread.Sleep(10);
@@ -71,7 +71,7 @@ namespace SimpleSessionServer {
 
             // 日志式输出
             var args = (ServerHostRecieveEventArgs)e;
-            //Console.WriteLine($">>> [{(args.Entity.DataMode?"D":"C")}] {e.Content}");
+            if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] --> [{(args.Entity.DataMode ? "D" : "C")}] {e.Content}");
 
             // 判断业务宿主是否为空
             if (_host == null) {
@@ -103,7 +103,7 @@ namespace SimpleSessionServer {
                         _host = new Hosts.Get(this);
                         break;
                     default:
-                        Console.WriteLine($"> 不支持的业务类型:{e.Content}");
+                        if (Server.IsDebug) Console.WriteLine($"> 不支持的业务类型:{e.Content}");
                         break;
                 }
             } else {
@@ -121,8 +121,10 @@ namespace SimpleSessionServer {
         /// <param name="data"></param>
         public void SendSuccess(ServerHostRecieveEventArgs e, string data = null) {
             if (data == null) {
+                if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] <-- [+]");
                 e.Entity.Send($"+0\r\n");
             } else {
+                if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] <-- [+] {data}");
                 byte[] bs = System.Text.Encoding.UTF8.GetBytes(data);
                 e.Entity.Sendln($"+{bs.Length}");
                 e.Entity.Send(bs);
@@ -136,8 +138,10 @@ namespace SimpleSessionServer {
         /// <param name="data"></param>
         public void SendFail(ServerHostRecieveEventArgs e, string data = null) {
             if (data == null) {
+                if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] <-- [-]");
                 e.Entity.Send($"-0\r\n");
             } else {
+                if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] <-- [-] {data}");
                 byte[] bs = System.Text.Encoding.UTF8.GetBytes(data);
                 e.Entity.Sendln($"-{bs.Length}");
                 e.Entity.Send(bs);

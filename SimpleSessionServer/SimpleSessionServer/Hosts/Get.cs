@@ -31,7 +31,7 @@ namespace SimpleSessionServer.Hosts {
                     base.SsrHost.SetHostNone();
                     break;
                 default:
-                    Console.WriteLine($"> 未知命令类型:{command}");
+                    if (Server.IsDebug) Console.WriteLine($"> 未知命令类型:{command}");
                     base.SsrHost.SendFail(e, "Unknow Command");
                     break;
             }
@@ -45,7 +45,7 @@ namespace SimpleSessionServer.Hosts {
                 case "$":
                     int len = int.Parse(info);
                     if (len <= 0) {
-                        Console.WriteLine($"> 名称长度为0");
+                        if (Server.IsDebug) Console.WriteLine($"> 名称长度为0");
                         base.SsrHost.SendFail(e, "Unknow Name");
                     } else {
                         // 设置读取模式，读取Sid
@@ -54,7 +54,7 @@ namespace SimpleSessionServer.Hosts {
                     }
                     break;
                 default:
-                    Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
+                    if (Server.IsDebug) Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
                     base.SsrHost.SendFail(e, "Unknow Command");
                     break;
             }

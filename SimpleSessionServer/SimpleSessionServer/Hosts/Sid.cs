@@ -30,6 +30,8 @@ namespace SimpleSessionServer.Hosts {
                         // 更新存储对象操作时间
                         entity.UpdateValidTime();
 
+                        if (Server.IsDebug) Console.WriteLine($"[{Time.GetTimeString()}] -+- 当前存储对象失效时间 {base.SsrHost.StorageEntity.ValidTime}");
+
                         // 返回信息
                         base.SsrHost.SendSuccess(e, entity.Sid);
                         // 设置为空业务
@@ -42,7 +44,7 @@ namespace SimpleSessionServer.Hosts {
                     }
                     break;
                 default:
-                    Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
+                    if (Server.IsDebug) Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
                     string errMsg = "Unknow Command";
                     e.Entity.Send($"-{errMsg.Length}\r\n{errMsg}");
                     break;
@@ -72,7 +74,7 @@ namespace SimpleSessionServer.Hosts {
                     }
                     break;
                 default:
-                    Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
+                    if (Server.IsDebug) Console.WriteLine($"> 未知命令类型:{command} 完整语句:{e.Content}");
                     string errMsg = "Unknow Command";
                     e.Entity.Send($"-{errMsg.Length}\r\n{errMsg}");
                     break;

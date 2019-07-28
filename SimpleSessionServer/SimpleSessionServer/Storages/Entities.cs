@@ -38,6 +38,7 @@ namespace SimpleSessionServer.Storages {
             // 清理存储
             foreach (string key in keys) {
                 this[key].Dispose();
+                this[key] = null;
                 this.Remove(key);
             }
 
